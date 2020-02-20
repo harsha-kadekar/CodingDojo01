@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+}
+
+group 'com.hkadekar.anu'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.apache.logging.log4j:log4j-api:2.12.1'
+    compile 'org.apache.logging.log4j:log4j-core:2.12.1'
+    compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.12.1'
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.5.2")
+
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty 'junit.jupiter.conditions.deactivate', '*'
+    systemProperties = [
+            'junit.jupiter.extensions.autodetection.enabled': 'true',
+            'junit.jupiter.testinstance.lifecycle.default': 'per_class'
+    ]
+}
