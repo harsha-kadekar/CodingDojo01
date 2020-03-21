@@ -3,7 +3,7 @@ package com.hkadekar.anu.accountprocessor;
 import java.util.Arrays;
 
 public class AccountTranslator {
-    public static long decipherAccountNumber(char[][] codedAccountNumber){
+    public static long decipherAccountNumber(char[][] codedAccountNumber) throws InvalidCharacterException{
         long accountNumber = 0;
 
         char[][] singleNumber = new char[4][];
@@ -21,7 +21,7 @@ public class AccountTranslator {
     }
 
 
-    public static long decipherNumber(char[][] codedNumber){
+    public static long decipherNumber(char[][] codedNumber) throws InvalidCharacterException{
 
         String row1 = String.valueOf(codedNumber[0]);
         String row2 = String.valueOf(codedNumber[1]);
@@ -46,8 +46,10 @@ public class AccountTranslator {
             return 7;
         } else if(row1.equals(" _ ") && row2.equals("|_|") && row3.equals("|_|") && row4.equals("   ")){
             return 8;
-        } else {
+        } else if(row1.equals(" _ ") && row2.equals("|_|") && row3.equals(" _|") && row4.equals("   ")){
             return 9;
+        } else {
+            throw new InvalidCharacterException(String.format("Invalid character found: row1 %s, row2 %s, row3 %s", row1, row2, row3));
         }
 
     }
