@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 public class AccountTranslatorTest {
 
     @Test
-    void testCodedAccountNumberConvertor(){
+    void testCodedAccountNumberConvertor() throws InvalidCharacterException{
         char[][] codedAccountNumber = {
                 {' ', ' ', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', ' ', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' '},
                 {' ', ' ', '|', ' ', '_', '|', ' ', '_', '|', '|', '_', '|', '|', '_', ' ', '|', '_', ' ', ' ', ' ', '|', '|', '_', '|', '|', '_', '|'},
@@ -23,7 +23,7 @@ public class AccountTranslatorTest {
     }
 
     @Test
-    void testCodedNumberConvertor(){
+    void testCodedNumberConvertor() throws InvalidCharacterException{
         char[][] codedNumber0 = {
                 {' ', '_', ' '},
                 {'|', ' ', '|'},
@@ -133,5 +133,21 @@ public class AccountTranslatorTest {
         expectedNumber = 9;
         returnedNumber = AccountTranslator.decipherNumber(codedNumber9);
         Assertions.assertEquals(expectedNumber, returnedNumber);
+    }
+
+
+    @Test
+    void testInvalidCharEncoding(){
+
+        char[][] invalidCodedNumber = {
+                {' ', '_', ' '},
+                {'|', '_', '|'},
+                {'|', ' ', '|'},
+                {' ', ' ', ' '}
+        };
+
+        Assertions.assertThrows(InvalidCharacterException.class, () -> {
+            AccountTranslator.decipherNumber(invalidCodedNumber);
+        });
     }
 }
