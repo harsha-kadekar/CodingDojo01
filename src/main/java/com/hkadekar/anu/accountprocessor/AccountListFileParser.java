@@ -10,7 +10,7 @@ import java.util.List;
 
 public class AccountListFileParser {
 
-    public static long[] getAccountListFromFile(String accountListFile) throws InvalidFileException, IOException, InvalidCharacterException{
+    public static long[] getAccountListFromFile(String accountListFile) throws InvalidFileException, IOException, InvalidCharacterException, InvalidAccountNumberException{
         long[] accountNumbers = null;
 
         List<String> fileLines = Files.readAllLines(Paths.get(accountListFile), StandardCharsets.UTF_8);
@@ -61,6 +61,9 @@ public class AccountListFileParser {
             encodedAccountNumber[3] = line4;
 
             accountNumbers[k] = AccountTranslator.decipherAccountNumber(encodedAccountNumber);
+            if(!AccountValidator.isAccountValid(accountNumbers[k])){
+                throw new InvalidAccountNumberException(String.format("This is an invalid account number - %d", accountNumbers[k]));
+            }
         }
         return accountNumbers;
     }
