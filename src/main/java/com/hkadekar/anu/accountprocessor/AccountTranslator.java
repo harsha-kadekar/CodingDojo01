@@ -20,6 +20,15 @@ public class AccountTranslator {
         return accountNumber;
     }
 
+    public static String decipherNumberWithDefaultValue(char[][] codedNumber) {
+        String number = "?";
+        try {
+            number = String.valueOf(decipherNumber(codedNumber));
+        } catch (InvalidCharacterException exp){
+            number = "?";
+        }
+        return number;
+    }
 
     public static long decipherNumber(char[][] codedNumber) throws InvalidCharacterException{
 
