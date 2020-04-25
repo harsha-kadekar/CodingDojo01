@@ -8,16 +8,38 @@ public class AccountTranslator {
 
         char[][] singleNumber = new char[4][];
         for(int i = 0; i < 27; i += 3){
-            singleNumber[0] = Arrays.copyOfRange(codedAccountNumber[0], i, i + 3 );
-            singleNumber[1] = Arrays.copyOfRange(codedAccountNumber[1], i, i + 3 );
-            singleNumber[2] = Arrays.copyOfRange(codedAccountNumber[2], i, i + 3 );
-            singleNumber[3] = Arrays.copyOfRange(codedAccountNumber[3], i, i + 3 );
+            singleNumber[0] = extractCharArray(codedAccountNumber[0], i, i + 3 );
+            singleNumber[1] = extractCharArray(codedAccountNumber[1], i, i + 3 );
+            singleNumber[2] = extractCharArray(codedAccountNumber[2], i, i + 3 );
+            singleNumber[3] = extractCharArray(codedAccountNumber[3], i, i + 3 );
 
             long value = decipherNumber(singleNumber);
             accountNumber = accountNumber*10 + value;
         }
 
         return accountNumber;
+    }
+
+    private static char[] extractCharArray(char[] ar, int startIndex, int endIndex) {
+        return Arrays.copyOfRange(ar, startIndex, endIndex );
+    }
+
+    public static String decipherAccountNumberAsString(char[][] codedAccountNumber) {
+
+        StringBuilder accountNumber = new StringBuilder();
+        char[][] singleNumber = new char[4][];
+
+        for(int i = 0; i < 27; i += 3){
+            singleNumber[0] = extractCharArray(codedAccountNumber[0], i, i + 3 );
+            singleNumber[1] = extractCharArray(codedAccountNumber[1], i, i + 3 );
+            singleNumber[2] = extractCharArray(codedAccountNumber[2], i, i + 3 );
+            singleNumber[3] = extractCharArray(codedAccountNumber[3], i, i + 3 );
+
+            String value = decipherNumberWithDefaultValue(singleNumber);
+            accountNumber.append(value);
+        }
+
+        return accountNumber.toString();
     }
 
     public static String decipherNumberWithDefaultValue(char[][] codedNumber) {

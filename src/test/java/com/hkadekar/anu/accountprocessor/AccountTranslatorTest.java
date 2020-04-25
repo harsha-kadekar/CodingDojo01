@@ -93,6 +93,40 @@ public class AccountTranslatorTest {
     }
 
     @Test
+    void testCodedAccountNumberConvertorWithString() {
+        char[][] codedAccountNumber = {
+                {' ', ' ', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', ' ', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' '},
+                {' ', ' ', '|', ' ', '_', '|', ' ', '_', '|', '|', '_', '|', '|', '_', ' ', '|', '_', ' ', ' ', ' ', '|', '|', '_', '|', '|', '_', '|'},
+                {' ', ' ', '|', '|', '_', ' ', ' ', '_', '|', ' ', ' ', '|', ' ', '_', '|', '|', '_', '|', ' ', ' ', '|', '|', '_', '|', ' ', '_', '|'},
+                {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}
+        };
+
+        String expectedAccountNumber = "123456789";
+
+        String returnedAccountNumber = AccountTranslator.decipherAccountNumberAsString(codedAccountNumber);
+
+        Assertions.assertEquals(expectedAccountNumber, returnedAccountNumber);
+
+    }
+
+    @Test
+    void testCodedAccountNumberConvertorWithStringWithError() {
+        char[][] codedAccountNumber = {
+                {' ', ' ', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', ' ', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' ', ' ', '_', ' '},
+                {' ', ' ', '|', ' ', '_', '|', ' ', '_', '|', '|', '_', '|', '|', '_', '|', '|', '_', ' ', ' ', ' ', '|', '|', '_', '|', '|', '_', '|'},
+                {' ', ' ', '|', '|', '_', ' ', ' ', '_', '|', ' ', ' ', '|', '|', ' ', '|', '|', '_', '|', ' ', ' ', '|', '|', '_', '|', ' ', '_', '|'},
+                {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}
+        };
+
+        String expectedAccountNumber = "1234?6789";
+
+        String returnedAccountNumber = AccountTranslator.decipherAccountNumberAsString(codedAccountNumber);
+
+        Assertions.assertEquals(expectedAccountNumber, returnedAccountNumber);
+
+    }
+
+    @Test
     void testCodedNumberConvertor() throws InvalidCharacterException{
 
         long expectedNumber = 1;
@@ -169,6 +203,13 @@ public class AccountTranslatorTest {
     @Test
     public void testValidAccountNumberAsString() {
 
+        char[][] invalidCodedNumber = {
+                {' ', '_', ' '},
+                {'|', '_', '|'},
+                {'|', ' ', '|'},
+                {' ', ' ', ' '}
+        };
+
         String expectedNumber = "1";
         String returnedNumber = AccountTranslator.decipherNumberWithDefaultValue(codedNumber1);
         Assertions.assertEquals(expectedNumber, returnedNumber);
@@ -207,6 +248,10 @@ public class AccountTranslatorTest {
 
         expectedNumber = "9";
         returnedNumber = AccountTranslator.decipherNumberWithDefaultValue(codedNumber9);
+        Assertions.assertEquals(expectedNumber, returnedNumber);
+
+        expectedNumber = "?";
+        returnedNumber = AccountTranslator.decipherNumberWithDefaultValue(invalidCodedNumber);
         Assertions.assertEquals(expectedNumber, returnedNumber);
 
     }

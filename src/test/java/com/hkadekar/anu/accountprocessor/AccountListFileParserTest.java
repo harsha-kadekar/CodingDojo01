@@ -2,8 +2,12 @@ package com.hkadekar.anu.accountprocessor;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasItems;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AccountListFileParserTest {
 
@@ -14,6 +18,20 @@ public class AccountListFileParserTest {
         long[] expectedAccountNumbers = {123456789L, 345882865L, 543210987L, 123456789L};
 
         Assertions.assertArrayEquals(expectedAccountNumbers, actualAccountNumbers);
+
+    }
+
+    @Test
+    public void testAccountListsFileReaderWithErrorCode() throws IOException, InvalidFileException {
+        String accountListFile = AccountListFileParserTest.class.getClassLoader().getResource("validAccountList").getPath();
+        List<AccountNumber> actualAccountNumbers = AccountListFileParser.getAccountListFromFileWithErrorCode(accountListFile);
+
+        AccountNumber ac1 = new AccountNumber("123456789", "");
+        AccountNumber ac2 = new AccountNumber("345882865", "");
+        AccountNumber ac3 = new AccountNumber("543210987", "");
+        AccountNumber ac4 = new AccountNumber("123456789", "");
+
+        assertThat(actualAccountNumbers, hasItems(ac1, ac2, ac3, ac4));
 
     }
 
