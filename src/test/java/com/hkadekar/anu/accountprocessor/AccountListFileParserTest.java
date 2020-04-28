@@ -6,7 +6,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItems;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AccountListFileParserTest {
@@ -30,6 +29,20 @@ public class AccountListFileParserTest {
         AccountNumber ac2 = new AccountNumber("345882865", "");
         AccountNumber ac3 = new AccountNumber("543210987", "");
         AccountNumber ac4 = new AccountNumber("123456789", "");
+
+        assertThat(actualAccountNumbers, hasItems(ac1, ac2, ac3, ac4));
+
+    }
+
+    @Test
+    public void testAccountListsFileReaderWithMixedErrorCode() throws IOException, InvalidFileException {
+        String accountListFile = AccountListFileParserTest.class.getClassLoader().getResource("mixedAccountList").getPath();
+        List<AccountNumber> actualAccountNumbers = AccountListFileParser.getAccountListFromFileWithErrorCode(accountListFile);
+
+        AccountNumber ac1 = new AccountNumber("123456789", "");
+        AccountNumber ac2 = new AccountNumber("345882?65", "ILL");
+        AccountNumber ac3 = new AccountNumber("543210987", "");
+        AccountNumber ac4 = new AccountNumber("123467890", "ERR");
 
         assertThat(actualAccountNumbers, hasItems(ac1, ac2, ac3, ac4));
 

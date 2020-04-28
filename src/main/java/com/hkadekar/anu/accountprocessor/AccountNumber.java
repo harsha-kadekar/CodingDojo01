@@ -39,7 +39,7 @@ public class AccountNumber {
             return false;
         }
 
-        if(!this.accountNumber.equals(ac.accountNumber)) {
+        if(this.accountNumber != null && !this.accountNumber.equals(ac.accountNumber)) {
             return false;
         }
 
@@ -51,7 +51,7 @@ public class AccountNumber {
             return false;
         }
 
-        if(!this.errorCode.equals(ac.errorCode)){
+        if(this.errorCode != null && !this.errorCode.equals(ac.errorCode)){
             return false;
         }
 
