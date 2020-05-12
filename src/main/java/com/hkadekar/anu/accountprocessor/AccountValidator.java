@@ -16,6 +16,9 @@ public class AccountValidator {
         possibleReplacements.put("9", Arrays.asList("8", "3", "5"));
         possibleReplacements.put("0", Arrays.asList("8"));
     }
+
+    
+
     public static boolean isAccountValid(long accountNumber){
         long sum = 0;
         int digit = 1;

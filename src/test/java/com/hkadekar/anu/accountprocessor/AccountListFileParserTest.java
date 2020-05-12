@@ -12,7 +12,7 @@ public class AccountListFileParserTest {
 
     @Test
     public void testAccountListsFileReader() throws InvalidCharacterException, IOException, InvalidFileException, InvalidAccountNumberException {
-        String accountListFile = AccountListFileParserTest.class.getClassLoader().getResource("validAccountList").getPath();
+        String accountListFile = AccountListFileParserTest.class.getClassLoader().getResource("accountlistfiles/validAccountList").getPath();
         long[] actualAccountNumbers = AccountListFileParser.getAccountListFromFile(accountListFile);
         long[] expectedAccountNumbers = {123456789L, 345882865L, 543210987L, 123456789L};
 
@@ -22,7 +22,7 @@ public class AccountListFileParserTest {
 
     @Test
     public void testAccountListsFileReaderWithErrorCode() throws IOException, InvalidFileException {
-        String accountListFile = AccountListFileParserTest.class.getClassLoader().getResource("validAccountList").getPath();
+        String accountListFile = AccountListFileParserTest.class.getClassLoader().getResource("accountlistfiles/validAccountList").getPath();
         List<AccountNumber> actualAccountNumbers = AccountListFileParser.getAccountListFromFileWithErrorCode(accountListFile);
 
         AccountNumber ac1 = new AccountNumber("123456789", "");
@@ -36,7 +36,7 @@ public class AccountListFileParserTest {
 
     @Test
     public void testAccountListsFileReaderWithMixedErrorCode() throws IOException, InvalidFileException {
-        String accountListFile = AccountListFileParserTest.class.getClassLoader().getResource("mixedAccountList").getPath();
+        String accountListFile = AccountListFileParserTest.class.getClassLoader().getResource("accountlistfiles/mixedAccountList").getPath();
         List<AccountNumber> actualAccountNumbers = AccountListFileParser.getAccountListFromFileWithErrorCode(accountListFile);
 
         AccountNumber ac1 = new AccountNumber("123456789", "");
@@ -50,7 +50,7 @@ public class AccountListFileParserTest {
 
     @Test
     public void testEmptyAccountListsFileReader() throws InvalidFileException, IOException, InvalidFileException, InvalidAccountNumberException {
-        String accountListFile = AccountListFileParserTest.class.getClassLoader().getResource("errorAccountList1").getPath();
+        String accountListFile = AccountListFileParserTest.class.getClassLoader().getResource("accountlistfiles/errorAccountList1").getPath();
 
         Assertions.assertThrows(InvalidFileException.class, () -> {
             AccountListFileParser.getAccountListFromFile(accountListFile);
@@ -61,7 +61,7 @@ public class AccountListFileParserTest {
 
     @Test
     public void testIncompleteAccountListsFileReader() throws InvalidFileException, IOException, InvalidFileException, InvalidAccountNumberException {
-        String accountListFile = AccountListFileParserTest.class.getClassLoader().getResource("errorAccountList2").getPath();
+        String accountListFile = AccountListFileParserTest.class.getClassLoader().getResource("accountlistfiles/errorAccountList2").getPath();
 
         Assertions.assertThrows(InvalidFileException.class, () -> {
             AccountListFileParser.getAccountListFromFile(accountListFile);
@@ -70,7 +70,7 @@ public class AccountListFileParserTest {
 
     @Test
     public void testMissingDataAccountListFilereader() throws InvalidFileException, IOException, InvalidFileException, InvalidAccountNumberException {
-        String accountListFile = AccountListFileParser.class.getClassLoader().getResource("errorAccountList3").getPath();
+        String accountListFile = AccountListFileParser.class.getClassLoader().getResource("accountlistfiles/errorAccountList3").getPath();
 
         Assertions.assertThrows(InvalidFileException.class, () -> {
             AccountListFileParser.getAccountListFromFile(accountListFile);
@@ -79,7 +79,7 @@ public class AccountListFileParserTest {
 
     @Test
     public void testInvalidFileExtraCharacterAccountListFileReader() throws InvalidFileException, InvalidCharacterException, IOException, InvalidAccountNumberException {
-        String accountListFile = AccountListFileParserTest.class.getClassLoader().getResource("errorAccountList4").getPath();
+        String accountListFile = AccountListFileParserTest.class.getClassLoader().getResource("accountlistfiles/errorAccountList4").getPath();
 
         Assertions.assertThrows(InvalidFileException.class, () -> {
             AccountListFileParser.getAccountListFromFile(accountListFile);
@@ -88,7 +88,7 @@ public class AccountListFileParserTest {
 
     @Test
     public void testInvalidCharacterAccountListFileReader() throws InvalidCharacterException, InvalidFileException, IOException, InvalidAccountNumberException {
-        String accountListFile = AccountListFileParserTest.class.getClassLoader().getResource("errorAccountList5").getPath();
+        String accountListFile = AccountListFileParserTest.class.getClassLoader().getResource("accountlistfiles/errorAccountList5").getPath();
 
         Assertions.assertThrows(InvalidCharacterException.class, () -> {
             AccountListFileParser.getAccountListFromFile(accountListFile);
@@ -97,7 +97,7 @@ public class AccountListFileParserTest {
 
     @Test
     public void testInvalidAccountNumberFileReader() throws InvalidCharacterException, InvalidFileException, IOException, InvalidAccountNumberException {
-        String accountListFile = AccountListFileParserTest.class.getClassLoader().getResource("errorAccountList6").getPath();
+        String accountListFile = AccountListFileParserTest.class.getClassLoader().getResource("accountlistfiles/errorAccountList6").getPath();
 
         Assertions.assertThrows(InvalidAccountNumberException.class, () -> {
             AccountListFileParser.getAccountListFromFile(accountListFile);
